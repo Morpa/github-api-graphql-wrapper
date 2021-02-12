@@ -9,7 +9,6 @@
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/Morpa/github-api-graphql-wrapper?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/Morpa/github-api-graphql-wrapper?color=56BEB8">
 
 </p>
 
