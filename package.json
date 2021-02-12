@@ -1,0 +1,29 @@
+{
+  "name": "github-api-graphql",
+  "version": "1.0.0",
+  "description": "A simple graphql wrapper to github rest api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "rest",
+    "graphql",
+    "api"
+  ],
+  "author": {
+    "name": "Morpa",
+    "url": "https://morpa.vercel.app"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.2.2",
+    "graphql": "^15.5.0",
+    "graphql-tag": "^2.10.1",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
