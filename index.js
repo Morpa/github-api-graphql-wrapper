@@ -27,6 +27,7 @@ type Labels {
   type Query {
     getJobs(limit: Int!): [Job]
     countJobs: Count
+    getLabels: [Job]
   }
 `;
 
@@ -40,7 +41,12 @@ const resolvers = {
       countJobs: async () => {
         const response = await fetch(MY_REST_URL);
             return response.json();
-        },
+    },
+      
+    getLabels: async () => {
+      const response = await fetch(MY_REST_URL + '/issues?state=open&labels');
+          return response.json();
+  },
     }
 };
 
