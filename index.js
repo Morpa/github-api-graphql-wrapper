@@ -15,7 +15,7 @@ type Labels {
   type Job {
     id: Int!
     title: String!
-    url: String!
+    html_url: String!
     created_at: String!
     labels: [Labels]
   }
