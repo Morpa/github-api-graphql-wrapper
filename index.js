@@ -17,7 +17,7 @@ type Labels {
     title: String!
     html_url: String!
     created_at: String!
-    labels: [Labels]
+    labels: [Labels]!
   }
 
   type Count {
