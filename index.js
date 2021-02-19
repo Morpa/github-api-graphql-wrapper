@@ -27,7 +27,7 @@ type Labels {
   type Query {
     getJobs(limit: Int!): [Job]!
     countJobs: Count!
-    getLabels: [Job]
+    getLabels: [Job]!
   }
 `;
 
