@@ -7,16 +7,16 @@ const MY_REST_URL = 'https://api.github.com/repos/frontendbr/vagas'
 const typeDefs = gql`
 
 type Labels {
-  node_id: String
-  name: String
-  color: String
+  node_id: String!
+  name: String!
+  color: String!
 }
 
   type Job {
-    id: Int
-    title: String
-    url: String
-    created_at: String
+    id: Int!
+    title: String!
+    url: String!
+    created_at: String!
     labels: [Labels]
   }
 
@@ -25,8 +25,8 @@ type Labels {
   }
 
   type Query {
-    getJobs(limit: Int!): [Job]
-    countJobs: Count
+    getJobs(limit: Int!): [Job]!
+    countJobs: Count!
     getLabels: [Job]
   }
 `;
