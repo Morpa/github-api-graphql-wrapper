@@ -7,7 +7,6 @@ const MY_REST_URL = 'https://api.github.com/repos/frontendbr/vagas'
 const typeDefs = gql`
 
 type Labels {
-  node_id: String!
   name: String!
   color: String!
 }
