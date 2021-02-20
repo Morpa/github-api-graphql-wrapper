@@ -24,7 +24,7 @@ type Labels {
   }
 
   type Query {
-    getJobs(limit: Int!, currentPage: Int!): [Job]!
+    getJobs(limit: Int!, currentPage: Int!, filter: String): [Job]!
     countJobs: Count!
     getLabels: [Job]!
   }
@@ -32,8 +32,8 @@ type Labels {
 
 const resolvers = {
     Query: {
-    getJobs: async (_, { currentPage, limit }) => {
-        const response = await fetch(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + '&labels');
+    getJobs: async (_, { currentPage, limit, filter }) => {
+        const response = await fetch(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter}`);
             return response.json();
     },
       
