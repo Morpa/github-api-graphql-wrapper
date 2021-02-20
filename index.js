@@ -33,7 +33,7 @@ type Labels {
 const resolvers = {
     Query: {
     getJobs: async (_, { currentPage, limit, filter }) => {
-        const response = await fetch(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter}`);
+        const response = await fetch(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter || ''}`);
             return response.json();
     },
       
