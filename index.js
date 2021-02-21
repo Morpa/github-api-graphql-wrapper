@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios').default;
 const { ApolloServer } = require('apollo-server');
 const gql = require('graphql-tag');
 
@@ -24,7 +24,7 @@ type Labels {
   }
 
   type Query {
-    getJobs(limit: Int!, currentPage: Int!, filter: String): [Job]!
+    getJobs(limit: Int!, currentPage: Int!, filter:[String]): [Job]!
     countJobs: Count!
     getLabels: [Job]!
   }
@@ -33,18 +33,18 @@ type Labels {
 const resolvers = {
     Query: {
     getJobs: async (_, { currentPage, limit, filter }) => {
-        const response = await fetch(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter || ''}`);
-            return response.json();
+         const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter || ''}`); 
+        return data; 
     },
       
       countJobs: async () => {
-        const response = await fetch(MY_REST_URL);
-            return response.json();
+        const { data } = await axios.get(MY_REST_URL);
+        return data;
     },
       
     getLabels: async () => {
-      const response = await fetch(MY_REST_URL + '/issues?state=open&labels');
-          return response.json();
+      const { data } = await axios.get(MY_REST_URL + '/issues?state=open&labels');
+      return data;
   },
     }
 };
