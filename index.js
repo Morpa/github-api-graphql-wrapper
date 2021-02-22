@@ -24,7 +24,7 @@ type Labels {
   }
 
   type Query {
-    getJobs(limit: Int!, currentPage: Int!, filter:[String]): [Job]!
+    getJobs(limit: Int!, currentPage: Int, filter:[String]): [Job]!
     countJobs: Count!
     getLabels: [Job]!
   }
@@ -33,8 +33,15 @@ type Labels {
 const resolvers = {
     Query: {
     getJobs: async (_, { currentPage, limit, filter }) => {
-         const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter || ''}`); 
+        if (!!filter) {
+          const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter}`);
+        return data;
+        } else {
+          const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}`+ '&labels' );
         return data; 
+        }
+        
+        
     },
       
       countJobs: async () => {
