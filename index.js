@@ -4,12 +4,14 @@ const gql = require('graphql-tag');
 
 const MY_REST_URL = 'https://api.github.com/repos/frontendbr/vagas'
 
+const MY_REST_URL_LIMIT = 'https://api.github.com/rate_limit'
+
 const typeDefs = gql`
 
-type Labels {
-  name: String!
-  color: String!
-}
+  type Labels {
+    name: String!
+    color: String!
+  }
 
   type Job {
     id: Int!
@@ -23,16 +25,22 @@ type Labels {
     open_issues_count: Int!
   }
 
+  type RateLimit {
+    limit: Int!
+    remaining: Int!
+  }
+
   type Query {
     getJobs(limit: Int!, currentPage: Int, filter:[String]): [Job]!
     countJobs: Count!
-    getLabels: [Job]!
+    getQuantity(filter:[String]): Int
+    rateLimit: RateLimit
   }
 `;
 
 const resolvers = {
     Query: {
-    getJobs: async (_, { currentPage, limit, filter }) => {
+      getJobs: async (_, { currentPage, limit, filter }) => {
         if (!!filter) {
           const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}` + `&labels=${filter}`);
         return data;
@@ -40,19 +48,25 @@ const resolvers = {
           const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=${limit}&page=${currentPage}`+ '&labels' );
         return data; 
         }
+      },
         
-        
-    },
-      
       countJobs: async () => {
         const { data } = await axios.get(MY_REST_URL);
         return data;
-    },
+      },
+        
+      getQuantity: async (_, { filter }) => {
+        const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=500` + `&labels=${filter}`);
+
+        const response = data.length
+
+        return response;
+      },
       
-    getLabels: async () => {
-      const { data } = await axios.get(MY_REST_URL + '/issues?state=open&labels');
-      return data;
-  },
+      rateLimit: async () => {
+        const { data } = await axios.get(MY_REST_URL_LIMIT);
+        return data.rate;
+      },
     }
 };
 
