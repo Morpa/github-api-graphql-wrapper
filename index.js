@@ -56,11 +56,21 @@ const resolvers = {
       },
         
       getQuantity: async (_, { filter }) => {
-        const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=500` + `&labels=${filter}`);
+        const { data } = await axios.get(MY_REST_URL + `/issues?state=open&per_page=100` + `&labels=${filter}`);
 
-        const response = data.length
 
-        return response;
+        if (filter === undefined) {
+          const response = 1000
+
+          return response;
+          
+        } else {
+          const response = data.length
+
+          return response;
+        }
+
+        
       },
       
       rateLimit: async () => {
